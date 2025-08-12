@@ -88,10 +88,10 @@ h1, h2 {
 
 .legend-popup {
   position: absolute;
-  top: 60px; /* Adjust as needed to position below the title */
+  top: 60px;
   right: 20px;
-  z-index: 1000; /* Ensure it's above other content */
-  width: 350px; /* Adjust width as needed */
+  z-index: 1000;
+  width: 450px; /* Increased width */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
@@ -106,8 +106,15 @@ dl.row {
   margin-bottom: 0;
 }
 
-dl.row dt,
+dl.row dt {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: bold;
+}
+
 dl.row dd {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-left: 0;
+  padding-left: 1rem;
 }

@@ -3,8 +3,9 @@
 
   <div [ngClass]="{'legend-popup': true, 'show': showLegend}">
     <div class="card mb-4">
-      <div class="card-header">
-        <h2 class="card-title text-center">{{ 'ACRONYMS_LEGEND' | translate }}</h2>
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="card-title text-center mb-0">{{ 'ACRONYMS_LEGEND' | translate }}</h2>
+        <button class="btn btn-sm btn-circle btn-light" (click)="toggleLegend()">X</button>
       </div>
       <div class="card-body">
         <dl class="row">
@@ -163,6 +164,16 @@
     <div class="card-body">
       <h2 class="card-title">{{ 'OVERALL_INVESTMENT_DECISION' | translate }}:</h2>
       <p class="lead">{{ investmentDecision }}</p>
+    </div>
+  </div>
+
+  <!-- Legal Disclaimer -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="card-title text-center">Aviso Legal</h2>
+    </div>
+    <div class="card-body text-white">
+      <p class="card-text">La información proporcionada en este sitio web es solo para fines informativos y no debe considerarse como asesoramiento financiero, de inversión o de cualquier otro tipo. Los datos y los indicadores que se muestran aquí son solo para fines de referencia y no deben ser la única base para tomar decisiones de inversión. Invertir en criptomonedas es arriesgado y puede resultar en la pérdida de su capital. Le recomendamos que realice su propia investigación y consulte con un asesor financiero calificado antes de tomar cualquier decisión de inversión. No nos hacemos responsables de ninguna pérdida o daño que pueda surgir del uso de la información de este sitio web.</p>
     </div>
   </div>
 </div>

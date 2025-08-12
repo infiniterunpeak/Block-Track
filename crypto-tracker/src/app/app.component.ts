@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PolkadotTrackerComponent } from './components/polkadot-tracker/polkadot-tracker.component';
+import { SeoService } from './services/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,9 @@ import { PolkadotTrackerComponent } from './components/polkadot-tracker/polkadot
 })
 export class AppComponent {
   title = 'crypto-tracker';
+  private seoService = inject(SeoService);
+
+  constructor() {
+    this.seoService.init();
+  }
 }
