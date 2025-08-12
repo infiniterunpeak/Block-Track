@@ -1,0 +1,62 @@
+1:58:08 PM: build-image version: 71a98eb82b055b934e7d58946f59957e90f5a76f (noble)
+1:58:08 PM: buildbot version: 72ba091da8478e084b7407a21cd8435e7ecab808
+1:58:08 PM: Fetching cached dependencies
+1:58:08 PM: Failed to fetch cache, continuing with build
+1:58:08 PM: Starting to prepare the repo for build
+1:58:09 PM: No cached dependencies found. Cloning fresh repo
+1:58:09 PM: git clone --filter=blob:none https://github.com/infiniterunpeak/Block-Track
+1:58:09 PM: Preparing Git Reference refs/heads/main
+1:58:10 PM: Custom publish path detected. Proceeding with the specified path: 'crypto-tracker/dist/crypto-tracker/browser'
+1:58:10 PM: Starting to install dependencies
+1:58:12 PM: v22.18.0 is already installed.
+1:58:12 PM: Now using node v22.18.0 (npm v10.9.3)
+1:58:12 PM: Enabling Node.js Corepack
+1:58:12 PM: Started restoring cached build plugins
+1:58:12 PM: Finished restoring cached build plugins
+1:58:12 PM: Started restoring cached corepack dependencies
+1:58:12 PM: Finished restoring cached corepack dependencies
+1:58:12 PM: No npm workspaces detected
+1:58:12 PM: Started restoring cached node modules
+1:58:12 PM: Finished restoring cached node modules
+1:58:12 PM: Installing npm packages using npm version 10.9.3
+1:58:16 PM: Failed during stage 'Install dependencies': dependency_installation script returned non-zero exit code: 1
+1:58:16 PM: npm error code ERESOLVE
+1:58:16 PM: npm error ERESOLVE could not resolve
+1:58:16 PM: npm error
+1:58:16 PM: npm error While resolving: ng2-charts@8.0.0
+1:58:16 PM: npm error Found: @angular/core@19.2.14
+1:58:16 PM: npm error node_modules/@angular/core
+1:58:16 PM: npm error   @angular/core@"^19.2.0" from the root project
+1:58:16 PM: npm error   peer @angular/core@"19.2.14" from @angular/common@19.2.14
+1:58:16 PM: npm error   node_modules/@angular/common
+1:58:16 PM: npm error     @angular/common@"^19.2.0" from the root project
+1:58:16 PM: npm error     peer @angular/common@"19.2.14" from @angular/forms@19.2.14
+1:58:16 PM: npm error     node_modules/@angular/forms
+1:58:16 PM: npm error       @angular/forms@"^19.2.0" from the root project
+1:58:16 PM: npm error     6 more (@angular/platform-browser, ...)
+1:58:16 PM: npm error   7 more (@angular/forms, @angular/platform-browser, ...)
+1:58:16 PM: npm error
+1:58:16 PM: npm error Could not resolve dependency:
+1:58:16 PM: npm error peer @angular/cdk@">=19.0.0" from ng2-charts@8.0.0
+1:58:16 PM: npm error node_modules/ng2-charts
+1:58:16 PM: npm error   ng2-charts@"^8.0.0" from the root project
+1:58:16 PM: npm error
+1:58:16 PM: npm error Conflicting peer dependency: @angular/core@20.1.6
+1:58:16 PM: npm error node_modules/@angular/core
+1:58:16 PM: npm error   peer @angular/core@"^20.0.0 || ^21.0.0" from @angular/cdk@20.1.5
+1:58:16 PM: npm error   node_modules/@angular/cdk
+1:58:16 PM: npm error     peer @angular/cdk@">=19.0.0" from ng2-charts@8.0.0
+1:58:16 PM: npm error     node_modules/ng2-charts
+1:58:16 PM: npm error       ng2-charts@"^8.0.0" from the root project
+1:58:16 PM: npm error
+1:58:16 PM: npm error Fix the upstream dependency conflict, or retry
+1:58:16 PM: npm error this command with --force or --legacy-peer-deps
+1:58:16 PM: npm error to accept an incorrect (and potentially broken) dependency resolution.
+1:58:16 PM: npm error
+1:58:16 PM: npm error
+1:58:16 PM: npm error For a full report see:
+1:58:16 PM: npm error /opt/buildhome/.npm/_logs/2025-08-12T11_58_12_684Z-eresolve-report.txt
+1:58:16 PM: npm error A complete log of this run can be found in: /opt/buildhome/.npm/_logs/2025-08-12T11_58_12_684Z-debug-0.log
+1:58:16 PM: Error during npm install
+1:58:16 PM: Failing build: Failed to install dependencies
+1:58:16 PM: Finished processing build request in 7.682s
