@@ -1,0 +1,113 @@
+/* Global styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #121212; /* Even darker background */
+  color: #f0f0f0; /* Brighter text */
+  min-height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.container-fluid {
+  padding: 20px;
+}
+
+h1, h2 {
+  color: #4CAF50; /* Greenish blue for headings */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #1e1e1e; /* Slightly lighter dark for cards */
+  border: 1px solid #4CAF50;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #212121; /* Even darker for card headers */
+  border-bottom: 1px solid #4CAF50;
+  color: #f0f0f0;
+  padding: 15px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-title {
+  margin-bottom: 0;
+  color: #f0f0f0;
+}
+
+.form-group label {
+  color: #f0f0f0;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  background-color: #212121;
+  color: #f0f0f0;
+  border: 1px solid #4CAF50;
+}
+
+.form-control:focus {
+  background-color: #212121;
+  color: #f0f0f0;
+  border-color: #66BB6A;
+  box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25);
+}
+
+.chart-container {
+  position: relative;
+  height: 100%; /* Make charts fill their container */
+  width: 100%;
+}
+
+.decision-card {
+  background-color: #4CAF50; /* Greenish blue for decision card */
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.lead {
+  color: #ffffff;
+}
+
+/* Specific adjustments for legend */
+.legend-popup .card-body,
+.col-md-6 .card-body p {
+  color: #FFFFFF; /* Ensure white text for better visibility */
+}
+
+.legend-popup {
+  position: absolute;
+  top: 60px; /* Adjust as needed to position below the title */
+  right: 20px;
+  z-index: 1000; /* Ensure it's above other content */
+  width: 350px; /* Adjust width as needed */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.legend-popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+dl.row {
+  margin-bottom: 0;
+}
+
+dl.row dt,
+dl.row dd {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}

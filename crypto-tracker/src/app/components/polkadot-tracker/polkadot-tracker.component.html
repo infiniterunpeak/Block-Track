@@ -1,0 +1,168 @@
+<div class="container-fluid mt-4">
+  <h1 class="text-center mb-4 position-relative">{{ 'APP_TITLE' | translate }} <span class="badge bg-primary">₿</span> <button class="btn btn-link text-info p-0" (click)="toggleLegend()">?</button></h1>
+
+  <div [ngClass]="{'legend-popup': true, 'show': showLegend}">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h2 class="card-title text-center">{{ 'ACRONYMS_LEGEND' | translate }}</h2>
+      </div>
+      <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3">RSI</dt>
+          <dd class="col-sm-9">{{ 'RSI_FULL' | translate }}</dd>
+
+          <dt class="col-sm-3">MACD</dt>
+          <dd class="col-sm-9">{{ 'MACD_FULL' | translate }}</dd>
+
+          <dt class="col-sm-3">SMA</dt>
+          <dd class="col-sm-9">{{ 'SMA_FULL' | translate }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="row align-items-start">
+    <div class="col-lg-8 mb-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <h2 class="card-title text-center">{{ selectedCrypto | titlecase }} {{ 'PRICE_HISTORY_LABEL' | translate:{crypto: ''} }} - {{ 'CURRENT_PRICE' | translate }}: ${{ currentCryptoPrice | number:'1.4-4' }}</h2>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height: 450px;">
+            <canvas baseChart
+                    [data]="priceChartData"
+                    [options]="chartOptions"
+                    [type]="chartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 h-100">
+      <div class="row h-100">
+        <!-- Select Cryptocurrency -->
+        <div class="col-12 mb-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="card-title text-center">{{ 'SELECT_CRYPTOCURRENCY' | translate }}</h2>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="cryptoSelect" class="form-label">{{ 'SELECT_CRYPTOCURRENCY' | translate }}:</label>
+                <select class="form-control" id="cryptoSelect" [(ngModel)]="selectedCrypto" (change)="onCryptoChange()">
+                  <option *ngFor="let crypto of cryptos" [value]="crypto.id">{{ crypto.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Investment Calculator -->
+        <div class="col-12 mb-4">
+          <div class="card h-100">
+            <div class="card-header">
+              <h2 class="card-title text-center">{{ 'INVESTMENT_CALCULATOR' | translate }}</h2>
+            </div>
+            <div class="card-body d-flex flex-column justify-content-between">
+              <div class="form-group mb-3">
+                <label for="investmentAmount" class="form-label">{{ 'INVESTMENT_AMOUNT' | translate }}:</label>
+                <input type="number" class="form-control" id="investmentAmount" [(ngModel)]="investmentAmount" placeholder="e.g., 1000">
+              </div>
+              <button class="btn btn-primary btn-block mb-3" (click)="calculateInvestment()">{{ 'CALCULATE_INVESTMENT' | translate }}</button>
+              <div *ngIf="calculationResult" class="alert alert-info mt-3">
+                <p class="mb-1"><strong>{{ 'RESULT' | translate }}:</strong> {{ calculationResult }}</p>
+                <p class="mb-0"><strong>{{ 'OPTIMAL_PRICE' | translate }}:</strong> {{ optimalPrice }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RSI and MACD charts - BELOW MAIN ROW -->
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <h2 class="card-title text-center">{{ '14_DAY_RSI' | translate }}</h2>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height: 350px;">
+            <canvas baseChart
+                    [data]="rsiChartData"
+                    [options]="chartOptions"
+                    [type]="chartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <h2 class="card-title text-center">{{ 'MACD_TITLE' | translate }}</h2>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height: 350px;">
+            <canvas baseChart
+                    [data]="macdChartData"
+                    [options]="chartOptions"
+                    [type]="chartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicator Summary Table and Dynamic Analysis Text -->
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <h2 class="card-title text-center">{{ 'INDICATOR_SUMMARY' | translate }}</h2>
+        </div>
+        <div class="card-body">
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>{{ 'INDICATOR' | translate }}</th>
+                <th>{{ 'VALUE' | translate }}</th>
+                <th>{{ 'INTERPRETATION' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let indicator of indicatorSummary">
+                <td>{{ indicator.name }}</td>
+                <td>{{ indicator.value }}</td>
+                <td>{{ indicator.interpretation }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <h2 class="card-title text-center">{{ 'DYNAMIC_ANALYSIS' | translate }}</h2>
+        </div>
+        <div class="card-body">
+          <p>{{ dynamicAnalysisText }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overall Investment Decision -->
+  <div class="card text-center bg-info text-white mb-4">
+    <div class="card-body">
+      <h2 class="card-title">{{ 'OVERALL_INVESTMENT_DECISION' | translate }}:</h2>
+      <p class="lead">{{ investmentDecision }}</p>
+    </div>
+  </div>
+</div>
