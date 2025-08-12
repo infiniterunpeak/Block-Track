@@ -5,6 +5,8 @@ import { Chart, ChartConfiguration, ChartType, ChartDataset, registerables } fro
 import { DataService } from '../../services/data.service';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 Chart.register(...registerables);
 
@@ -56,6 +58,7 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
   private currentRSI = 0;
   private currentSMA20 = 0;
   private updateInterval: any;
+  private destroy$ = new Subject<void>();
 
   constructor(private dataService: DataService, private translate: TranslateService) {
     const browserLang = translate.getBrowserLang();
@@ -64,7 +67,7 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.dataService.getTrendingCryptos().subscribe(response => {
+    this.dataService.getTrendingCryptos().pipe(takeUntil(this.destroy$)).subscribe(response => {
       this.cryptos = response.coins.map((coin: any) => ({ id: coin.item.id, name: coin.item.name }));
       this.loadCryptoData(this.selectedCrypto);
       this.startAutoUpdate();
@@ -75,6 +78,8 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
     if (this.updateInterval) {
       clearInterval(this.updateInterval);
     }
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onCryptoChange(): void {
@@ -128,7 +133,7 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
   }
 
   private loadCryptoData(cryptoId: string): void {
-    this.dataService.getCryptoData(cryptoId).subscribe(data => {
+    this.dataService.getCryptoData(cryptoId).pipe(takeUntil(this.destroy$)).subscribe(data => {
       const prices = data.prices.map((p: any) => p[1]);
       const dates = data.prices.map((p: any) => new Date(p[0]).toLocaleDateString());
 
@@ -214,5 +219,13 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  trackByCrypto(index: number, crypto: { id: string, name: string }): string {
+    return crypto.id;
+  }
+
+  trackByIndicator(index: number, indicator: { name: string, value: string, interpretation: string }): string {
+    return indicator.name;
   }
 }

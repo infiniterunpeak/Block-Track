@@ -52,7 +52,7 @@
               <div class="form-group">
                 <label for="cryptoSelect" class="form-label">{{ 'SELECT_CRYPTOCURRENCY' | translate }}:</label>
                 <select class="form-control" id="cryptoSelect" [(ngModel)]="selectedCrypto" (change)="onCryptoChange()">
-                  <option *ngFor="let crypto of cryptos" [value]="crypto.id">{{ crypto.name }}</option>
+                  <option *ngFor="let crypto of cryptos; trackBy: trackByCrypto" [value]="crypto.id">{{ crypto.name }}</option>
                 </select>
               </div>
             </div>
@@ -136,7 +136,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let indicator of indicatorSummary">
+              <tr *ngFor="let indicator of indicatorSummary; trackBy: trackByIndicator">
                 <td>{{ indicator.name }}</td>
                 <td>{{ indicator.value }}</td>
                 <td>{{ indicator.interpretation }}</td>
