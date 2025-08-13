@@ -42,5 +42,17 @@
   "PRICE_ABOVE_SMAS_TEXT": " El precio está por encima de las Medias Móviles Simples de 20 días ({{sma20}}) y 50 días ({{sma50}}), indicando una fuerte tendencia alcista.",
   "PRICE_BELOW_SMAS_TEXT": " El precio está por debajo de las Medias Móviles Simples de 20 días ({{sma20}}) y 50 días ({{sma50}}), indicando una tendencia bajista.",
   "MACD_BULLISH_TEXT": " La línea MACD ({{macd}}) está por encima de la línea de Señal ({{signal}}), lo que es un cruce alcista.",
-  "MACD_BEARISH_TEXT": " La línea MACD ({{macd}}) está por debajo de la línea de Señal ({{signal}}), lo que es un cruce bajista."
+  "MACD_BEARISH_TEXT": " La línea MACD ({{macd}}) está por debajo de la línea de Señal ({{signal}}), lo que es un cruce bajista.",
+  "SELL_CALCULATOR": "Calculadora de Venta",
+  "PURCHASE_PRICE": "Precio de Compra",
+  "AMOUNT_TO_SELL": "Cantidad a Vender",
+  "CALCULATE_SELL": "Calcular Venta",
+  "ENTER_VALID_SELL_INFO": "Por favor, introduce un precio de compra y una cantidad a vender válidos.",
+  "GOOD_TIME_TO_SELL": "¡Buen momento para vender! Obtendrías una ganancia de {{profit}} USD.",
+  "BAD_TIME_TO_SELL": "No es un buen momento para vender. Incurrirías en una pérdida de {{loss}} USD.",
+  "HOLD_RECOMMENDATION": "Los indicadores sugieren una fuerte tendencia alcista. Quizás quieras mantener para obtener más ganancias potenciales. Ganancia actual: {{profit}} USD.",
+  "SELL_NOW_RECOMMENDATION": "Es un buen momento para vender y tomar tus ganancias de {{profit}} USD. Los indicadores sugieren que el precio podría no subir mucho más.",
+  "HOLD_FOR_REBOUND": "Estás en una pérdida de {{loss}} USD. Los indicadores sugieren una posible recuperación del precio, por lo que mantener podría ser una buena opción.",
+  "CONSIDER_SELLING_AT_LOSS": "Estás en una pérdida de {{loss}} USD. Los indicadores son bajistas, considera limitar tus pérdidas.",
+  "PRICE_DATA_UNAVAILABLE": "Los datos de precios aún no están disponibles. Por favor, espera un momento a que se carguen los datos."
 }

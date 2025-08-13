@@ -50,6 +50,10 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
   public optimalPrice = '';
   public currentCryptoPrice = 0;
 
+  public sellAmount: number | null = null;
+  public purchasePrice: number | null = null;
+  public sellCalculationResult = '';
+
   public indicatorSummary: { name: string, value: string, interpretation: string }[] = [];
   public dynamicAnalysisText = '';
   public showLegend = false;
@@ -57,6 +61,8 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
   private currentPrice = 0;
   private currentRSI = 0;
   private currentSMA20 = 0;
+  private currentMACDLine = 0;
+  private currentSignalLine = 0;
   private updateInterval: any;
   private destroy$ = new Subject<void>();
 
@@ -107,6 +113,14 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
   }
 
   calculateInvestment(): void {
+    if (this.currentCryptoPrice <= 0) {
+      this.translate.get('PRICE_DATA_UNAVAILABLE').subscribe((res: string) => {
+        this.calculationResult = res;
+      });
+      this.optimalPrice = '';
+      return;
+    }
+
     if (this.investmentAmount === null || this.investmentAmount <= 0) {
       this.translate.get('ENTER_VALID_AMOUNT').subscribe((res: string) => {
         this.calculationResult = res;
@@ -132,6 +146,47 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
     }
   }
 
+  calculateSell(): void {
+    if (this.currentCryptoPrice <= 0) {
+      this.translate.get('PRICE_DATA_UNAVAILABLE').subscribe((res: string) => {
+        this.sellCalculationResult = res;
+      });
+      return;
+    }
+
+    if (this.sellAmount === null || this.sellAmount <= 0 || this.purchasePrice === null || this.purchasePrice <= 0) {
+      this.translate.get('ENTER_VALID_SELL_INFO').subscribe((res: string) => {
+        this.sellCalculationResult = res;
+      });
+      return;
+    }
+
+    const profitOrLoss = (this.currentCryptoPrice - this.purchasePrice) * this.sellAmount;
+    const isBullish = this.currentRSI < 70 && this.currentCryptoPrice > this.currentSMA20 && this.currentMACDLine > this.currentSignalLine;
+
+    if (profitOrLoss > 0) {
+      if (isBullish) {
+        this.translate.get('HOLD_RECOMMENDATION', { profit: profitOrLoss.toFixed(2) }).subscribe((res: string) => {
+          this.sellCalculationResult = res;
+        });
+      } else {
+        this.translate.get('SELL_NOW_RECOMMENDATION', { profit: profitOrLoss.toFixed(2) }).subscribe((res: string) => {
+          this.sellCalculationResult = res;
+        });
+      }
+    } else {
+      if (isBullish) {
+        this.translate.get('HOLD_FOR_REBOUND', { loss: Math.abs(profitOrLoss).toFixed(2) }).subscribe((res: string) => {
+          this.sellCalculationResult = res;
+        });
+      } else {
+        this.translate.get('CONSIDER_SELLING_AT_LOSS', { loss: Math.abs(profitOrLoss).toFixed(2) }).subscribe((res: string) => {
+          this.sellCalculationResult = res;
+        });
+      }
+    }
+  }
+
   private loadCryptoData(cryptoId: string): void {
     this.dataService.getCryptoData(cryptoId).pipe(takeUntil(this.destroy$)).subscribe(data => {
       const prices = data.prices.map((p: any) => p[1]);
@@ -147,15 +202,15 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
       const sma50 = this.dataService.calculateSMA(prices, 50);
       const macd = this.dataService.calculateMACD(prices);
       const currentSMA50 = sma50[sma50.length - 1];
-      const currentMACDLine = macd.macdLine[macd.macdLine.length - 1];
-      const currentSignalLine = macd.signalLine[macd.signalLine.length - 1];
+      this.currentMACDLine = macd.macdLine[macd.macdLine.length - 1];
+      this.currentSignalLine = macd.signalLine[macd.signalLine.length - 1];
 
       this.indicatorSummary = [
         { name: 'RSI (14)', value: this.currentRSI.toFixed(2), interpretation: this.currentRSI < 30 ? this.translate.instant('OVERSOLD') : (this.currentRSI > 70 ? this.translate.instant('OVERBOUGHT') : this.translate.instant('NEUTRAL')) },
         { name: 'SMA (20)', value: this.currentSMA20.toFixed(2), interpretation: this.currentPrice > this.currentSMA20 ? this.translate.instant('BULLISH') : this.translate.instant('BEARISH') },
         { name: 'SMA (50)', value: currentSMA50.toFixed(2), interpretation: this.currentPrice > currentSMA50 ? this.translate.instant('BULLISH') : this.translate.instant('BEARISH') },
-        { name: 'MACD Line', value: currentMACDLine.toFixed(4), interpretation: '' },
-        { name: 'Signal Line', value: currentSignalLine.toFixed(4), interpretation: '' }
+        { name: 'MACD Line', value: this.currentMACDLine.toFixed(4), interpretation: '' },
+        { name: 'Signal Line', value: this.currentSignalLine.toFixed(4), interpretation: '' }
       ];
 
       let analysisParts: string[] = [];
@@ -173,10 +228,10 @@ export class PolkadotTrackerComponent implements OnInit, OnDestroy {
         analysisParts.push(this.translate.instant('PRICE_BELOW_SMAS_TEXT', { sma20: this.currentSMA20.toFixed(2), sma50: currentSMA50.toFixed(2) }));
       }
 
-      if (currentMACDLine > currentSignalLine) {
-        analysisParts.push(this.translate.instant('MACD_BULLISH_TEXT', { macd: currentMACDLine.toFixed(4), signal: currentSignalLine.toFixed(4) }));
-      } else if (currentMACDLine < currentSignalLine) {
-        analysisParts.push(this.translate.instant('MACD_BEARISH_TEXT', { macd: currentMACDLine.toFixed(4), signal: currentSignalLine.toFixed(4) }));
+      if (this.currentMACDLine > this.currentSignalLine) {
+        analysisParts.push(this.translate.instant('MACD_BULLISH_TEXT', { macd: this.currentMACDLine.toFixed(4), signal: this.currentSignalLine.toFixed(4) }));
+      } else if (this.currentMACDLine < this.currentSignalLine) {
+        analysisParts.push(this.translate.instant('MACD_BEARISH_TEXT', { macd: this.currentMACDLine.toFixed(4), signal: this.currentSignalLine.toFixed(4) }));
       }
       this.dynamicAnalysisText = analysisParts.join(' ');
 

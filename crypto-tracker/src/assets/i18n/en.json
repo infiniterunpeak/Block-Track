@@ -42,5 +42,17 @@
   "PRICE_ABOVE_SMAS_TEXT": " The price is above both the 20-day ({{sma20}}) and 50-day ({{sma50}}) Simple Moving Averages, indicating a strong bullish trend.",
   "PRICE_BELOW_SMAS_TEXT": " The price is below both the 20-day ({{sma20}}) and 50-day ({{sma50}}) Simple Moving Averages, indicating a bearish trend.",
   "MACD_BULLISH_TEXT": " The MACD line ({{macd}}) is above the Signal line ({{signal}}), which is a bullish crossover.",
-  "MACD_BEARISH_TEXT": " The MACD line ({{macd}}) is below the Signal line ({{signal}}), which is a bearish crossover."
+  "MACD_BEARISH_TEXT": " The MACD line ({{macd}}) is below the Signal line ({{signal}}), which is a bearish crossover.",
+  "SELL_CALCULATOR": "Sell Calculator",
+  "PURCHASE_PRICE": "Purchase Price",
+  "AMOUNT_TO_SELL": "Amount to Sell",
+  "CALCULATE_SELL": "Calculate Sell",
+  "ENTER_VALID_SELL_INFO": "Please enter a valid purchase price and amount to sell.",
+  "GOOD_TIME_TO_SELL": "Good time to sell! You would make a profit of {{profit}} USD.",
+  "BAD_TIME_TO_SELL": "Not a good time to sell. You would incur a loss of {{loss}} USD.",
+  "HOLD_RECOMMENDATION": "Indicators suggest a strong upward trend. You might want to hold for more potential profit. Current profit: {{profit}} USD.",
+  "SELL_NOW_RECOMMENDATION": "It's a good time to sell and take your profit of {{profit}} USD. Indicators suggest the price might not rise much further.",
+  "HOLD_FOR_REBOUND": "You are at a loss of {{loss}} USD. Indicators suggest a possible price recovery, so holding might be a good option.",
+  "CONSIDER_SELLING_AT_LOSS": "You are at a loss of {{loss}} USD. Indicators are bearish, consider cutting your losses.",
+  "PRICE_DATA_UNAVAILABLE": "Price data is not yet available. Please wait a moment for the data to load."
 }
